@@ -10,10 +10,14 @@
 
 @class JHViewController;
 
+@class JHViewControllerTutorial;
+
 @interface JHAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) JHViewController *viewController;
+
+@property (strong, nonatomic) JHViewControllerTutorial *viewControllerTutorial;
 
 @end

@@ -10,6 +10,9 @@
 		AB00517D155886BC001B57B6 /* wheelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AB00517C155886BC001B57B6 /* wheelButton.png */; };
 		AB00518015588CEF001B57B6 /* wheelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB00517F15588CEF001B57B6 /* wheelButton@2x.png */; };
 		AB0051821558B2C2001B57B6 /* wheel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB0051811558B2C2001B57B6 /* wheel@2x.png */; };
+		AB05F33017B9D497001E7117 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB05F32F17B9D497001E7117 /* Security.framework */; };
+		AB05F33617BAC4A4001E7117 /* raDialTimerAlarmTrim.wav in Resources */ = {isa = PBXBuildFile; fileRef = AB05F33517BAC4A4001E7117 /* raDialTimerAlarmTrim.wav */; };
+		AB1100BF17C40CB800BAC9F7 /* JHViewControllerTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1100BE17C40CB800BAC9F7 /* JHViewControllerTutorial.m */; };
 		AB3CE3CC151802A300D49806 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB3CE3CB151802A300D49806 /* UIKit.framework */; };
 		AB3CE3CE151802A300D49806 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB3CE3CD151802A300D49806 /* Foundation.framework */; };
 		AB3CE3D0151802A300D49806 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB3CE3CF151802A300D49806 /* CoreGraphics.framework */; };
@@ -20,23 +23,35 @@
 		AB3CE3E2151802A300D49806 /* JHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3CE3E0151802A300D49806 /* JHViewController.xib */; };
 		AB3CE3EA1518061500D49806 /* JHRotaryWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3CE3E91518061500D49806 /* JHRotaryWheel.m */; };
 		AB3CE3ED1518098F00D49806 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB3CE3EC1518098F00D49806 /* QuartzCore.framework */; };
-		AB47A5F3156D7FAD0073343F /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = AB47A5F1156D7FAD0073343F /* background.png */; };
-		AB47A5F4156D7FAD0073343F /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB47A5F2156D7FAD0073343F /* background@2x.png */; };
-		AB561A9D1569E72F00BA8CC3 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AB561A971569E72F00BA8CC3 /* Icon-72.png */; };
-		AB561A9E1569E72F00BA8CC3 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = AB561A981569E72F00BA8CC3 /* Icon-Small-50.png */; };
-		AB561A9F1569E72F00BA8CC3 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = AB561A991569E72F00BA8CC3 /* Icon-Small.png */; };
-		AB561AA01569E72F00BA8CC3 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB561A9A1569E72F00BA8CC3 /* Icon-Small@2x.png */; };
-		AB561AA11569E72F00BA8CC3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB561A9B1569E72F00BA8CC3 /* Icon.png */; };
-		AB561AA21569E72F00BA8CC3 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB561A9C1569E72F00BA8CC3 /* Icon@2x.png */; };
-		AB9EEEF51569E31700481D90 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = AB9EEEF41569E31700481D90 /* default.png */; };
-		AB9EEEF81569E33B00481D90 /* default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB9EEEF71569E33B00481D90 /* default@2x.png */; };
+		AB4E1336178601050041BF5D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AB4E132E178601050041BF5D /* Icon-72.png */; };
+		AB4E1337178601050041BF5D /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB4E132F178601050041BF5D /* Icon-72@2x.png */; };
+		AB4E1338178601050041BF5D /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = AB4E1330178601050041BF5D /* Icon-Small-50.png */; };
+		AB4E1339178601050041BF5D /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB4E1331178601050041BF5D /* Icon-Small-50@2x.png */; };
+		AB4E133A178601050041BF5D /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = AB4E1332178601050041BF5D /* Icon-Small.png */; };
+		AB4E133B178601050041BF5D /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB4E1333178601050041BF5D /* Icon-Small@2x.png */; };
+		AB4E133C178601050041BF5D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB4E1334178601050041BF5D /* Icon.png */; };
+		AB4E133D178601050041BF5D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB4E1335178601050041BF5D /* Icon@2x.png */; };
+		AB67CC7C17B9C9BE0037A9ED /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB67CC7B17B9C9BE0037A9ED /* AudioToolbox.framework */; };
+		AB74B1A717B9D33600480EE2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB74B19817B9CDFB00480EE2 /* SystemConfiguration.framework */; };
+		ABA9901D17C0872F002F2637 /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA9901C17C0872F002F2637 /* libFlurry_4.2.3.a */; };
+		ABAD152E17B9C79300F358CF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAD152D17B9C79300F358CF /* AVFoundation.framework */; };
 		ABD826371533803A009733C7 /* wheel.png in Resources */ = {isa = PBXBuildFile; fileRef = ABD826361533803A009733C7 /* wheel.png */; };
+		ABEF400717DFB71B00152559 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABEF400617DFB71B00152559 /* Images.xcassets */; };
+		ABEF400917DFB91B00152559 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = ABEF400817DFB91B00152559 /* icon120.png */; };
+		ABEF400B17DFB93D00152559 /* icon80.png in Resources */ = {isa = PBXBuildFile; fileRef = ABEF400A17DFB93D00152559 /* icon80.png */; };
+		ABF64B3D1785F07300E5B4F2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF64B3C1785F07300E5B4F2 /* Default-568h@2x.png */; };
+		ABF64B3F1785F16600E5B4F2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF64B3E1785F16600E5B4F2 /* Default@2x.png */; };
+		ABF64B411785F19100E5B4F2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF64B401785F19100E5B4F2 /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AB00517C155886BC001B57B6 /* wheelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wheelButton.png; sourceTree = "<group>"; };
 		AB00517F15588CEF001B57B6 /* wheelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wheelButton@2x.png"; sourceTree = "<group>"; };
 		AB0051811558B2C2001B57B6 /* wheel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wheel@2x.png"; sourceTree = "<group>"; };
+		AB05F32F17B9D497001E7117 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AB05F33517BAC4A4001E7117 /* raDialTimerAlarmTrim.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = raDialTimerAlarmTrim.wav; path = ../raDialTimerAlarmTrim.wav; sourceTree = "<group>"; };
+		AB1100BD17C40CB800BAC9F7 /* JHViewControllerTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHViewControllerTutorial.h; sourceTree = "<group>"; };
+		AB1100BE17C40CB800BAC9F7 /* JHViewControllerTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHViewControllerTutorial.m; sourceTree = "<group>"; };
 		AB3CE3C7151802A300D49806 /* raDial Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "raDial Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB3CE3CB151802A300D49806 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AB3CE3CD151802A300D49806 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -54,17 +69,28 @@
 		AB3CE3E91518061500D49806 /* JHRotaryWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHRotaryWheel.m; sourceTree = "<group>"; };
 		AB3CE3EB1518063900D49806 /* JHRotaryWheelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHRotaryWheelProtocol.h; sourceTree = "<group>"; };
 		AB3CE3EC1518098F00D49806 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		AB47A5F1156D7FAD0073343F /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
-		AB47A5F2156D7FAD0073343F /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
-		AB561A971569E72F00BA8CC3 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
-		AB561A981569E72F00BA8CC3 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
-		AB561A991569E72F00BA8CC3 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		AB561A9A1569E72F00BA8CC3 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		AB561A9B1569E72F00BA8CC3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		AB561A9C1569E72F00BA8CC3 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		AB9EEEF41569E31700481D90 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
-		AB9EEEF71569E33B00481D90 /* default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default@2x.png"; sourceTree = "<group>"; };
+		AB4E132E178601050041BF5D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		AB4E132F178601050041BF5D /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		AB4E1330178601050041BF5D /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		AB4E1331178601050041BF5D /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		AB4E1332178601050041BF5D /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		AB4E1333178601050041BF5D /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		AB4E1334178601050041BF5D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		AB4E1335178601050041BF5D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		AB67CC7B17B9C9BE0037A9ED /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		AB74B19817B9CDFB00480EE2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		AB74B19C17B9D09500480EE2 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		AB74B19F17B9D26700480EE2 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		ABA9901B17C0872F002F2637 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		ABA9901C17C0872F002F2637 /* libFlurry_4.2.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.2.3.a; sourceTree = "<group>"; };
+		ABAD152D17B9C79300F358CF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		ABD826361533803A009733C7 /* wheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wheel.png; sourceTree = "<group>"; };
+		ABEF400617DFB71B00152559 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "raDial Timer/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		ABEF400817DFB91B00152559 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
+		ABEF400A17DFB93D00152559 /* icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon80.png; sourceTree = "<group>"; };
+		ABF64B3C1785F07300E5B4F2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		ABF64B3E1785F16600E5B4F2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		ABF64B401785F19100E5B4F2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +98,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB05F33017B9D497001E7117 /* Security.framework in Frameworks */,
+				AB74B1A717B9D33600480EE2 /* SystemConfiguration.framework in Frameworks */,
+				AB67CC7C17B9C9BE0037A9ED /* AudioToolbox.framework in Frameworks */,
+				ABAD152E17B9C79300F358CF /* AVFoundation.framework in Frameworks */,
 				AB3CE3ED1518098F00D49806 /* QuartzCore.framework in Frameworks */,
+				ABA9901D17C0872F002F2637 /* libFlurry_4.2.3.a in Frameworks */,
 				AB3CE3CC151802A300D49806 /* UIKit.framework in Frameworks */,
 				AB3CE3CE151802A300D49806 /* Foundation.framework in Frameworks */,
 				AB3CE3D0151802A300D49806 /* CoreGraphics.framework in Frameworks */,
@@ -85,11 +116,24 @@
 		AB3CE3BC151802A200D49806 = {
 			isa = PBXGroup;
 			children = (
-				AB3CE3EC1518098F00D49806 /* QuartzCore.framework */,
+				AB4E132E178601050041BF5D /* Icon-72.png */,
+				AB4E132F178601050041BF5D /* Icon-72@2x.png */,
+				AB4E1330178601050041BF5D /* Icon-Small-50.png */,
+				AB4E1331178601050041BF5D /* Icon-Small-50@2x.png */,
+				AB4E1332178601050041BF5D /* Icon-Small.png */,
+				AB4E1333178601050041BF5D /* Icon-Small@2x.png */,
+				AB4E1334178601050041BF5D /* Icon.png */,
+				ABEF400A17DFB93D00152559 /* icon80.png */,
+				ABEF400817DFB91B00152559 /* icon120.png */,
+				AB4E1335178601050041BF5D /* Icon@2x.png */,
+				ABF64B401785F19100E5B4F2 /* Default.png */,
+				ABF64B3E1785F16600E5B4F2 /* Default@2x.png */,
+				ABF64B3C1785F07300E5B4F2 /* Default-568h@2x.png */,
 				AB3CE3D1151802A300D49806 /* Timer */,
 				ABD826341533801B009733C7 /* Resources */,
 				AB3CE3CA151802A300D49806 /* Frameworks */,
 				AB3CE3C8151802A300D49806 /* Products */,
+				ABA9901A17C0872F002F2637 /* Flurry */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,6 +148,13 @@
 		AB3CE3CA151802A300D49806 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB05F32F17B9D497001E7117 /* Security.framework */,
+				AB74B19F17B9D26700480EE2 /* MediaPlayer.framework */,
+				AB74B19C17B9D09500480EE2 /* AdSupport.framework */,
+				AB67CC7B17B9C9BE0037A9ED /* AudioToolbox.framework */,
+				AB3CE3EC1518098F00D49806 /* QuartzCore.framework */,
+				AB74B19817B9CDFB00480EE2 /* SystemConfiguration.framework */,
+				ABAD152D17B9C79300F358CF /* AVFoundation.framework */,
 				AB3CE3CB151802A300D49806 /* UIKit.framework */,
 				AB3CE3CD151802A300D49806 /* Foundation.framework */,
 				AB3CE3CF151802A300D49806 /* CoreGraphics.framework */,
@@ -118,6 +169,8 @@
 				AB3CE3DB151802A300D49806 /* JHAppDelegate.m */,
 				AB3CE3DD151802A300D49806 /* JHViewController.h */,
 				AB3CE3DE151802A300D49806 /* JHViewController.m */,
+				AB1100BD17C40CB800BAC9F7 /* JHViewControllerTutorial.h */,
+				AB1100BE17C40CB800BAC9F7 /* JHViewControllerTutorial.m */,
 				AB3CE3E81518061500D49806 /* JHRotaryWheel.h */,
 				AB3CE3E91518061500D49806 /* JHRotaryWheel.m */,
 				AB3CE3EB1518063900D49806 /* JHRotaryWheelProtocol.h */,
@@ -138,19 +191,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		ABA9901A17C0872F002F2637 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				ABA9901B17C0872F002F2637 /* Flurry.h */,
+				ABA9901C17C0872F002F2637 /* libFlurry_4.2.3.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
 		ABD826341533801B009733C7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AB47A5F1156D7FAD0073343F /* background.png */,
-				AB47A5F2156D7FAD0073343F /* background@2x.png */,
-				AB561A971569E72F00BA8CC3 /* Icon-72.png */,
-				AB561A981569E72F00BA8CC3 /* Icon-Small-50.png */,
-				AB561A991569E72F00BA8CC3 /* Icon-Small.png */,
-				AB561A9A1569E72F00BA8CC3 /* Icon-Small@2x.png */,
-				AB561A9B1569E72F00BA8CC3 /* Icon.png */,
-				AB561A9C1569E72F00BA8CC3 /* Icon@2x.png */,
-				AB9EEEF71569E33B00481D90 /* default@2x.png */,
-				AB9EEEF41569E31700481D90 /* default.png */,
+				AB05F33517BAC4A4001E7117 /* raDialTimerAlarmTrim.wav */,
+				ABEF400617DFB71B00152559 /* Images.xcassets */,
 				AB00517F15588CEF001B57B6 /* wheelButton@2x.png */,
 				AB00517C155886BC001B57B6 /* wheelButton.png */,
 				AB0051811558B2C2001B57B6 /* wheel@2x.png */,
@@ -187,8 +241,13 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = JH;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = SuaveApps;
+				TargetAttributes = {
+					AB3CE3C6151802A300D49806 = {
+						DevelopmentTeam = 2QKE35W3ZR;
+					};
+				};
 			};
 			buildConfigurationList = AB3CE3C1151802A200D49806 /* Build configuration list for PBXProject "raDial Timer" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -218,16 +277,21 @@
 				AB00517D155886BC001B57B6 /* wheelButton.png in Resources */,
 				AB00518015588CEF001B57B6 /* wheelButton@2x.png in Resources */,
 				AB0051821558B2C2001B57B6 /* wheel@2x.png in Resources */,
-				AB9EEEF51569E31700481D90 /* default.png in Resources */,
-				AB9EEEF81569E33B00481D90 /* default@2x.png in Resources */,
-				AB561A9D1569E72F00BA8CC3 /* Icon-72.png in Resources */,
-				AB561A9E1569E72F00BA8CC3 /* Icon-Small-50.png in Resources */,
-				AB561A9F1569E72F00BA8CC3 /* Icon-Small.png in Resources */,
-				AB561AA01569E72F00BA8CC3 /* Icon-Small@2x.png in Resources */,
-				AB561AA11569E72F00BA8CC3 /* Icon.png in Resources */,
-				AB561AA21569E72F00BA8CC3 /* Icon@2x.png in Resources */,
-				AB47A5F3156D7FAD0073343F /* background.png in Resources */,
-				AB47A5F4156D7FAD0073343F /* background@2x.png in Resources */,
+				ABEF400917DFB91B00152559 /* icon120.png in Resources */,
+				ABF64B3D1785F07300E5B4F2 /* Default-568h@2x.png in Resources */,
+				ABF64B3F1785F16600E5B4F2 /* Default@2x.png in Resources */,
+				ABF64B411785F19100E5B4F2 /* Default.png in Resources */,
+				AB4E1336178601050041BF5D /* Icon-72.png in Resources */,
+				AB4E1337178601050041BF5D /* Icon-72@2x.png in Resources */,
+				AB4E1338178601050041BF5D /* Icon-Small-50.png in Resources */,
+				AB4E1339178601050041BF5D /* Icon-Small-50@2x.png in Resources */,
+				ABEF400B17DFB93D00152559 /* icon80.png in Resources */,
+				AB05F33617BAC4A4001E7117 /* raDialTimerAlarmTrim.wav in Resources */,
+				AB4E133A178601050041BF5D /* Icon-Small.png in Resources */,
+				ABEF400717DFB71B00152559 /* Images.xcassets in Resources */,
+				AB4E133B178601050041BF5D /* Icon-Small@2x.png in Resources */,
+				AB4E133C178601050041BF5D /* Icon.png in Resources */,
+				AB4E133D178601050041BF5D /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB1100BF17C40CB800BAC9F7 /* JHViewControllerTutorial.m in Sources */,
 				AB3CE3D8151802A300D49806 /* main.m in Sources */,
 				AB3CE3DC151802A300D49806 /* JHAppDelegate.m in Sources */,
 				AB3CE3DF151802A300D49806 /* JHViewController.m in Sources */,
@@ -271,8 +336,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -285,9 +356,14 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -296,17 +372,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Hirz (7BCSPDAVAY)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E00ED57F-5106-4569-B17F-12C7C6F2249B";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -315,11 +401,21 @@
 		AB3CE3E6151802A300D49806 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Timer/raDial Timer-Prefix.pch";
 				INFOPLIST_FILE = "Timer/raDial Timer-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jonathan/Developer/Projects/Timer/Flurry,
+				);
 				PRODUCT_NAME = "raDial Timer";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -327,11 +423,22 @@
 		AB3CE3E7151802A300D49806 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Timer/raDial Timer-Prefix.pch";
 				INFOPLIST_FILE = "Timer/raDial Timer-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jonathan/Developer/Projects/Timer/Flurry,
+				);
 				PRODUCT_NAME = "raDial Timer";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E71DDC3A-0CAE-440B-BA5E-36AC5813D928";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

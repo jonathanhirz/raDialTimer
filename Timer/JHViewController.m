@@ -9,19 +9,27 @@
 #import <QuartzCore/QuartzCore.h>
 #import "JHViewController.h"
 #import "JHRotaryWheel.h"
+#import <AudioToolbox/AudioServices.h>
+
 
 @interface JHViewController ()
+
 
 @end
 
 @implementation JHViewController
 
+JHRotaryWheel *wheel;
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     //add some flair
-    self.view.layer.backgroundColor	 = [UIColor darkGrayColor].CGColor;
+    //self.view.layer.backgroundColor	 = [UIColor darkGrayColor].CGColor;
     self.view.layer.cornerRadius = 0.0;
+    // self.view.tintColor = [UIColor redColor];
     
     /* we don't need no fancy sublayer here
     CALayer *sublayer = [CALayer layer];
@@ -35,8 +43,23 @@
     sublayer.borderWidth = 2.0;
     [self.view.layer addSublayer:sublayer];
     */
+
     
-    JHRotaryWheel *wheel = [[JHRotaryWheel alloc] initWithFrame:CGRectMake(0, 0, 320, 480) andDelegate:self];
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if (result.height == 480)
+        {
+            wheel = [[JHRotaryWheel alloc] initWithFrame:CGRectMake(0, 0, 320, 480) andDelegate:self];
+        }
+        else
+        {
+            wheel = [[JHRotaryWheel alloc] initWithFrame:CGRectMake(0, 0, 320, 568) andDelegate:self];
+        }
+    }
+    
+    
+    //NSLog(@"%f",[[UIScreen mainScreen] bounds].size.height);
     [self.view addSubview:wheel];
 }
 

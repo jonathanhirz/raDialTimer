@@ -8,6 +8,7 @@
 
 #import "JHRotaryWheel.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Flurry.h"
 
 @interface JHRotaryWheel()
 - (void)drawWheel;
@@ -16,14 +17,26 @@
 - (float)calculateDistanceFromCenter:(CGPoint)point;
 - (int)totalNumberOfSeconds:(NSDate *)date;
 - (void)resetTimer;
+- (void)showActionSheet:(id)sender;
+- (void)adjustSpinnerAnimationAfterResuming;
+- (void)animateTimeLeftLayerMask:(float)timeToSpin withStrokeEndFromValue:(float)strokeEndFromValue;
 @end
 
+NSDate *currentDate;
 static float deltaAngle;
 float timerDisplayAmount = 0;
 int spinnerFinalSize = 265;
 int spinnerFullSize = 285;
 CALayer *timeLeftLayer;
+CALayer *backgroundLayer;
 CAShapeLayer *maskLayer;
+NSDate *alarmFireDate;
+UIActionSheet *resetTimer;
+NSDate *timeRightNow;
+UIButton *resetTimerButton;
+CAAnimationGroup *animationGroupFlash;
+UILocalNotification *timerDone;
+float totalSeconds;
 
 // - conditions -
 // is timer counting down? (don't spin wheel if timer is running)
@@ -44,7 +57,6 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
         [self drawWheel];
         [self drawTimerDisplay];
         [self drawStartButton];
-        [self drawPauseButton];
         [self setupTimer];
     }
     return self;
@@ -116,8 +128,11 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
 
 - (void)drawBackground {
     //self.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background.png"]];
-    self.backgroundColor = UIColorFromRGB(0xe5e6c0);
+    //self.backgroundColor = UIColorFromRGB(0xffffff);
+    backgroundLayer = [self layer];
+    backgroundLayer.backgroundColor = [UIColor whiteColor].CGColor;
 }
+
 
 - (void)drawTimeLeft {
     
@@ -137,6 +152,7 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
     [animationGroup setDuration:0.4];
     [animationGroup setRemovedOnCompletion:NO];
     [animationGroup setFillMode:kCAFillModeForwards];
+    [animationGroup setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
     [timeLeftLayer addAnimation:animationGroup forKey:nil];
     animationsAreFinished = YES;
 }
@@ -203,8 +219,31 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
 }
 
 - (void)drawTimerDisplay {
-    timerDisplay = [[UILabel alloc] initWithFrame:CGRectMake(0,0,320,75)];
-    timerDisplay.textAlignment = UITextAlignmentCenter;
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if (result.height == 480)   //timer display for 3.5 inch
+        {
+            if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+                timerDisplay = [[UILabel alloc] initWithFrame:CGRectMake(0,15,320,75)];  //ios 7
+            }else{
+                timerDisplay = [[UILabel alloc] initWithFrame:CGRectMake(0,25,320,75)];  //ios 6
+            }
+
+        }
+        else    //timer display for 4 inch
+        {
+            if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+                timerDisplay = [[UILabel alloc] initWithFrame:CGRectMake(0,35,320,75)]; //ios 7
+            }else{
+                timerDisplay = [[UILabel alloc] initWithFrame:CGRectMake(0,45,320,75)]; //ios 6
+            }
+
+        }
+    }
+    
+    timerDisplay.textAlignment = NSTextAlignmentCenter;
     timerDisplay.backgroundColor = [UIColor clearColor];
     timerDisplay.textColor = UIColorFromRGB(0x272929);
     [timerDisplay setFont:[UIFont fontWithName:@"Helvetica-Bold" size:70.0]];
@@ -215,14 +254,14 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
 
 - (void)drawStartButton {
     startButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    startButton.frame = CGRectMake(320/2-45, 480/2-45, 90, 90);
+    startButton.frame = CGRectMake(self.bounds.size.width/2-45, self.bounds.size.height/2-45, 90, 90);
     [[startButton layer] setCornerRadius:50.0f];
     
     // startButton shadow
     //startButton.clipsToBounds = YES;
     //startButton.layer.masksToBounds = NO;
     startButton.layer.shadowColor = [UIColor whiteColor].CGColor;
-    startButton.layer.shadowOpacity = 0.75;
+    startButton.layer.shadowOpacity = 0.5;
     startButton.layer.shadowRadius = 2;
     startButton.layer.shadowOffset = CGSizeMake(0.0, 0.0);
     //startButton.layer.borderColor = [UIColor blueColor].CGColor;
@@ -231,10 +270,10 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
     // startButton.title shadow
     [startButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
     [startButton setTitle:@"Start" forState:UIControlStateNormal];
-    startButton.titleLabel.layer.shadowColor = [UIColor blueColor].CGColor;
-    startButton.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    startButton.titleLabel.layer.shadowOpacity = 1.0;
-    startButton.titleLabel.layer.shadowRadius = 4.0;
+    //startButton.titleLabel.layer.shadowColor = [UIColor blueColor].CGColor;
+    //startButton.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    //startButton.titleLabel.layer.shadowOpacity = 1.0;
+    //startButton.titleLabel.layer.shadowRadius = 4.0;
     startButton.titleLabel.layer.masksToBounds = NO;
     
     [startButton addTarget:self action:@selector(startButtonPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -243,13 +282,109 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
     [self addSubview:startButton];
 }
 
-- (void)drawPauseButton {
-    pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    pauseButton.frame = CGRectMake(0, 0, 320, 70);
-    pauseButton.layer.opaque = NO;
-    [pauseButton addTarget:self action:@selector(pauseButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:pauseButton];
+
+#pragma mark - Animation groups for end of timer flash
+
+
+- (CABasicAnimation *)animateTimerFinishedFlashBackgroundWhiteToRed {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    [animation setFromValue:(id)UIColorFromRGB(0xFFFFFF).CGColor];
+    [animation setToValue:(id)UIColorFromRGB(0xC03F3F).CGColor];
+    [animation setBeginTime:0.0];
+    [animation setDuration:0.5];
+    return animation;
 }
+- (CABasicAnimation *)animateTimerFinishedFlashBackgroundRedToWhite {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    [animation setFromValue:(id)UIColorFromRGB(0xC03F3F).CGColor];
+    [animation setToValue:(id)UIColorFromRGB(0xFFFFFF).CGColor];
+    [animation setBeginTime:0.5];
+    [animation setDuration:0.5];
+    return animation;
+}
+
+- (void)animateTimerFinishedFlashBackground {
+    // create a button the size of the whole screen
+    // 'play alarm' until screen is touched (button pressed)
+    // flash (animate) background color change a few times
+    // play alarm sound
+    
+    resetTimerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    resetTimerButton.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+    resetTimerButton.layer.opaque = NO;
+    [resetTimerButton addTarget:self action:@selector(stopTheFlashing) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:resetTimerButton];
+    
+    
+    animationGroupFlash = [CAAnimationGroup animation];
+    [animationGroupFlash setAnimations:[NSArray arrayWithObjects:
+                                        [self animateTimerFinishedFlashBackgroundWhiteToRed],
+                                        [self animateTimerFinishedFlashBackgroundRedToWhite],nil]];
+    [animationGroupFlash setDuration:1.0];
+    [animationGroupFlash setRepeatCount:10.0];
+    [animationGroupFlash setRemovedOnCompletion:NO];
+    [animationGroupFlash setDelegate:self];
+    [animationGroupFlash setFillMode:kCAFillModeForwards];
+    [animationGroupFlash setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+    [backgroundLayer addAnimation:animationGroupFlash forKey:@"flash"];
+    
+    
+    // create and play sound
+    NSString *alarmSoundPath = [[NSBundle mainBundle] pathForResource:@"raDialTimerAlarmTrim" ofType:@"wav"];
+    NSURL *alarmSoundURL = [NSURL fileURLWithPath:alarmSoundPath];
+    NSError *error;
+    
+    if (audioPlayer == nil) {
+        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:alarmSoundURL error:&error];
+    }
+    if (audioPlayer) {
+        [audioPlayer setNumberOfLoops:9];
+        [audioPlayer prepareToPlay];
+        [audioPlayer play];
+    } else {
+        NSLog(@"%@",error);
+    }
+    [Flurry logEvent:@"Finished Timer"];
+    
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)finishedAnimation{
+    if(finishedAnimation) {
+        if(anim == [backgroundLayer animationForKey:@"flash"]) {
+            //NSLog(@"DOES THIS FUCKING WORK YET!?");
+            [self stopTheFlashing];
+        }
+    }
+    
+}
+
+- (void)stopTheFlashing {
+    [resetTimerButton removeFromSuperview];
+    [backgroundLayer removeAllAnimations];
+    if (audioPlayer) {
+        [audioPlayer stop];
+        audioPlayer.currentTime = 0;
+    }
+    // STOP THE SOUND WHEN ITS IN THERE
+    // NSLog(@"stopTheFlashing");
+}
+
+#pragma mark - Fix the spinner animation when resuming
+
+- (void)adjustSpinnerAnimationAfterResuming {
+    NSLog(@"spinner adjusted");
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [maskLayer removeAllAnimations];
+    int timeToSpinNew = [self totalNumberOfSeconds:currentDate];
+    float spinFromThisPercentage = ((float)timeToSpinNew / (float)totalSeconds);
+    NSLog(@"timeToSpinNew:%i",timeToSpinNew);
+    NSLog(@"spinFromThisPercentage:%f",spinFromThisPercentage);
+    [self animateTimeLeftLayerMask:timeToSpinNew withStrokeEndFromValue:spinFromThisPercentage];
+    //clear spinning animation
+    //restart spinning animation with remaining time and remaining percentage of time for strokeEnd
+    
+}
+
 
 #pragma mark - Timer Setup & Maintenence
 
@@ -274,30 +409,63 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
     timerDisplay.text = timerString;
 }
 
+
 // Function is called every second, after startButtonPressed
 // Subtracts 1.0 seconds from currentDate, updates display, checks if we are at 0 (if so, resetTimer)
 - (void)startCountdown {
     countdownHasStarted = YES;
-    currentDate = [currentDate dateByAddingTimeInterval:-1.0];
+    
+    NSTimeInterval timeUntilAlertFires = [alarmFireDate timeIntervalSinceDate:[NSDate date]];
+    [self setupTimer];
+    currentDate = [currentDate dateByAddingTimeInterval:1.0];
+    currentDate = [currentDate dateByAddingTimeInterval:timeUntilAlertFires]; //this adds a negative number, hence the countdown
+    //currentDate = [NSDate dateWithTimeInterval:timeUntilAlertFires sinceDate:timeRightNow];
+    //NSLog(@"timeUntilAlertFires:%f",timeUntilAlertFires);
+    //NSLog(@"currentDate:%@",currentDate);
+    //NSLog(@"timeRightNow:%@",timeRightNow);
+    //NSLog(@"alarmFireDate:%@",alarmFireDate);
     [self updateTimer];
     if ([self totalNumberOfSeconds:currentDate] == 0) {
+        [self resetTimer];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        [self animateTimerFinishedFlashBackground];
+    }
+    if (timeUntilAlertFires < 0) {
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
         [self resetTimer];
     }
 }
 
 - (void)setupAlert {
-    UILocalNotification *timerDone = [[UILocalNotification alloc] init];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    timerDone = [[UILocalNotification alloc] init];
     if (timerDone == nil)
         return;
     timerDone.fireDate = [[NSDate date] dateByAddingTimeInterval:[self totalNumberOfSeconds:currentDate]];
+    alarmFireDate = timerDone.fireDate;
     timerDone.timeZone = [NSTimeZone defaultTimeZone];
-    timerDone.soundName = UILocalNotificationDefaultSoundName;
-    timerDone.alertBody = @"Timer Done!";
-    //timerDone.alertAction = @"Get it";
-    timerDone.hasAction = NO;
+    //timerDone.soundName = UILocalNotificationDefaultSoundName;
+    timerDone.soundName = @"raDialTimerAlarmTrim.wav";
+    
+    NSArray *notificationTextArray = [NSArray arrayWithObjects:
+                                      @"Timer done",
+                                      @"Time is up",
+                                      @"Time's up!",
+                                      @"🔔 Ding Ding 🔔",
+                                      @"🎵 Beep Beep 🎵",
+                                      @"🎶 Ring Ring 🎶",
+                                      @"Timer finished",
+                                      nil];
+    int notificationAlertIndex = (arc4random() % [notificationTextArray count] + 0);
+    // NSLog(@"array count:%i",[notificationTextArray count]);
+    // NSLog(@"notificationAlertIndex:%i",notificationAlertIndex);
+    timerDone.alertBody = notificationTextArray[notificationAlertIndex];
+    timerDone.hasAction = YES;
+    timerDone.applicationIconBadgeNumber = 1;
     [[UIApplication sharedApplication] scheduleLocalNotification:timerDone];
     
 }
+
 
 /*
 
@@ -322,10 +490,12 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
     if (countdownHasStarted == NO) {
         if (startButtonHasAlreadyBeenPressed == NO) {
             if ([self totalNumberOfSeconds:currentDate] > 0) {
-                stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                timeRightNow = [NSDate date];
+                [[UIApplication sharedApplication] cancelAllLocalNotifications];
+                stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
                                                                   target:self
                                                                 selector:@selector(startCountdown)
-                                                                userInfo:nil 
+                                                                userInfo:nil
                                                                  repeats:YES];
                 [startButton setTitle:@"Reset" forState:UIControlStateNormal];
                 [self animateGrowSpinner];
@@ -333,21 +503,52 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
                 [self setupAlert];
                 // NSLog(@"totalNumberOfSeconds:%i", [self totalNumberOfSeconds:currentDate]);
                 startButtonHasAlreadyBeenPressed = YES;
+                totalSeconds = [self totalNumberOfSeconds:currentDate];
+                NSDictionary *timerParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                             [NSNumber numberWithInt:[self totalNumberOfSeconds:currentDate]], @"Number of Seconds", nil];
+                [Flurry logEvent:@"Start a Timer" withParameters:timerParams];
+                //NSLog(@"params:%@",[timerParams valueForKey:@"Total Seconds"]);
+                //NSLog(@"paramsTest:%@",[NSNumber numberWithInt:[self totalNumberOfSeconds:currentDate]]);
+                //NSLog(@"timerParams:%@",timerParams);
             }
         }
     }
     if (countdownHasStarted == YES) {
         // stop the timer
-        [self animateTimeLeftLayerMask:0.8 withStrokeEndFromValue:[[maskLayer presentationLayer] strokeEnd]];
-        [self resetTimer];
+        
+        // action sheet from bottom: Reset Timer? / Cancel
+        [self showActionSheet:self];
+        
+        
+        //[self animateTimeLeftLayerMask:0.8 withStrokeEndFromValue:[[maskLayer presentationLayer] strokeEnd]];
+        //[self resetTimer];
     }
 }
+
 
 - (void)pauseButtonPressed {
     if (countdownHasStarted == YES) {
         // NSLog(@"Timer Paused");
         // pause the timer
     }
+}
+
+-(void)showActionSheet:(id)sender {
+    resetTimer = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Reset Timer?" otherButtonTitles:nil, nil];
+    resetTimer.actionSheetStyle = UIActionSheetStyleAutomatic;
+    [resetTimer showInView:self];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self animateTimeLeftLayerMask:0.8 withStrokeEndFromValue:[[maskLayer presentationLayer] strokeEnd]];
+        [self resetTimer];
+        [Flurry logEvent:@"Reset Timer"];
+        NSLog(@"button 0 pushed"); //reset
+    } else if (buttonIndex == 1) {
+        NSLog(@"button 1 pushed"); //cancel
+    }
+    
 }
 
 #pragma mark - Touch Controls
@@ -488,6 +689,11 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
         [self updateTimer];
     }
 }
+- (void)resetCountdown {
+    [stopWatchTimer invalidate];
+    stopWatchTimer = nil;
+    
+}
 
 - (void)resetTimer{
     [startButton setTitle:@"Start" forState:UIControlStateNormal];
@@ -501,8 +707,10 @@ BOOL startButtonHasAlreadyBeenPressed = NO;
     animationsAreFinished = NO;
     startButtonHasAlreadyBeenPressed = NO;
     container.transform = CGAffineTransformIdentity;
+    [resetTimer dismissWithClickedButtonIndex:1 animated:YES];
     [self setupTimer];
     [self updateTimer];
 }
+
 
 @end
