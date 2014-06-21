@@ -1,8 +1,9 @@
-/art
-/Flurry
+art/
+Flurry/
 .DS_Store
 thinkingPad
 demo.mov
 TimerIcons.Reducticon
 AppStoreText
-icons_timer
+icons_timer.prepo
+raDialTimerAlarm.band
